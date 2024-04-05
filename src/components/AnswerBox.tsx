@@ -92,7 +92,7 @@ export const AnswerBox = ({ question, thumbsUp, retryAnswer, ...props }: AnswerB
                             active:text-blue-800
                             active:rotate-90 transition-transform duration-70
                             hover:text-blue-700
-                            disabled:text-gray-300
+                            disabled:text-gray-300 disabled:transform-none
                         `}
                         disabled={isBusy}
                         onClick={doRetryAnswer}
