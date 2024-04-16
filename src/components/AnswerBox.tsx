@@ -71,7 +71,7 @@ export const AnswerBox = ({ question, thumbsUp, retryAnswer, ...props }: AnswerB
 
     return (
         <div className="flex rounded-lg mt-2 p-6 text-left w-[48rem] border border-gray-300 shadow-lg relative" style={{ background: 'rgba(255, 255, 255, 0.6)' }} {...props}>
-            <div className='markdown-container'>
+            <div className='markdown-container pb-6'>
                 <div className="markdown-body" style={{ backgroundColor: "transparent" }} dangerouslySetInnerHTML={{ __html: renderedAnswer }} />
                 <div className='absolute left-0 top-0 bottom-0 flex flex-row items-center ml-[-0.7rem]'>
                     <button className='hover:text-blue-700' style={{ 'display': answerIndex > 0 ? 'inherit' : 'none' }}
@@ -85,7 +85,7 @@ export const AnswerBox = ({ question, thumbsUp, retryAnswer, ...props }: AnswerB
                         {arrowRightIcon}
                     </button>
                 </div>
-                <div className='absolute bottom-0 right-0 p-1'>
+                <div className='absolute bottom-0 right-0 p-2'>
                     <button
                         className={`
                             text-gray-500 p-1
