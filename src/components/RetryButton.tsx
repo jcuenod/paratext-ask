@@ -2,9 +2,9 @@ import { rotateRightIcon } from "./Icons"
 
 type RetryButtonProps = {
 	isBusy: boolean
-	doRetryAnswer: () => void
+	onClick: () => void
 }
-export const RetryButton = ({ isBusy, doRetryAnswer }: RetryButtonProps) => (
+export const RetryButton = ({ isBusy, onClick }: RetryButtonProps) => (
 	<button
 		className={`
             text-gray-500 p-1
@@ -14,7 +14,7 @@ export const RetryButton = ({ isBusy, doRetryAnswer }: RetryButtonProps) => (
             disabled:text-gray-300 disabled:transform-none
         `}
 		disabled={isBusy}
-		onClick={doRetryAnswer}
+		onClick={onClick}
 	>
 		{rotateRightIcon}
 	</button>

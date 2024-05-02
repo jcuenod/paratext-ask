@@ -8,18 +8,19 @@ import { RenderedMarkdown } from "./RenderedMarkdown"
 type AnswerBoxProps = {
 	className?: string
 	question: Question | undefined
+	isBusy: boolean
 	thumbsUp: (answerId: number, value: boolean) => void
-	retryAnswer: (callback?: () => void) => void
+	retryAnswer: () => void
 }
 export const AnswerBox = ({
 	question,
 	thumbsUp,
 	retryAnswer,
+	isBusy,
 	...props
 }: AnswerBoxProps) => {
 	const answers = question?.answers
 	const [answerIndex, setAnswerIndex] = useState<number>(0)
-	const [isBusy, setIsBusy] = useState<boolean>(false)
 
 	useEffect(() => {
 		setAnswerIndex((answers?.length || 1) - 1)
@@ -34,17 +35,12 @@ export const AnswerBox = ({
 		thumbsUp(answerId, answers?.[answerIndex]?.thumbs_up ? false : true)
 	}
 
-	const doRetryAnswer = () => {
-		setIsBusy(true)
-		retryAnswer(() => {
-			setAnswerIndex(answerIndex + 1)
-			setIsBusy(false)
-		})
-	}
-
 	return (
 		<div
-			className="flex rounded-lg mt-2 p-6 text-left w-[48rem] border border-gray-300 shadow-lg relative"
+			className={
+				"flex rounded-lg mt-2 p-6 text-left w-[48rem] border border-gray-300 shadow-lg relative transition-all duration-300" +
+				(isBusy ? " blur-sm pointer-events-none" : "")
+			}
 			style={{ background: "rgba(255, 255, 255, 0.6)" }}
 			{...props}
 		>
@@ -61,7 +57,7 @@ export const AnswerBox = ({
 					show={answerIndex < (answers?.length || 1) - 1}
 				/>
 				<div className="absolute bottom-0 right-0 p-2">
-					<RetryButton isBusy={isBusy} doRetryAnswer={doRetryAnswer} />
+					<RetryButton isBusy={isBusy} onClick={retryAnswer} />
 					<ThumbsUpButton
 						isThumbsUp={answers?.[answerIndex]?.thumbs_up || false}
 						giveThumbsUp={giveThumbsUp}

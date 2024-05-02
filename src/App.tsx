@@ -18,15 +18,16 @@ function App() {
 		const updatedQuestion = await QAManager.thumbsUpAnswer(answerId, value)
 		setQuestion(updatedQuestion)
 	}
-	const handleRetryAnswer = async (callback?: () => void) => {
+	const handleRetryAnswer = async () => {
 		if (!question?.id) {
 			console.error("No question id found")
 			return
 		}
+		setIsBusy(true)
 		const questionWithNewAnswer = await QAManager.getNewAnswer(question.id)
 		console.log(questionWithNewAnswer)
 		setQuestion(questionWithNewAnswer)
-		if (callback) callback()
+		setIsBusy(false)
 	}
 
 	return (
@@ -45,6 +46,7 @@ function App() {
 						question={question}
 						thumbsUp={handleThumbsUp}
 						retryAnswer={handleRetryAnswer}
+						isBusy={isBusy}
 					/>
 				) : (
 					<div className="flex justify-center">
