@@ -38,7 +38,7 @@ export const AnswerBox = ({
 	return (
 		<div
 			className={
-				"flex rounded-lg mt-2 p-6 text-left w-[48rem] border border-gray-300 shadow-lg relative transition-all duration-300" +
+				"flex rounded-lg mt-2 p-6 text-left md:w-[32rem] lg:w-[48rem] border border-gray-300 shadow-lg relative transition-all duration-300" +
 				(isBusy ? " blur-sm pointer-events-none" : "")
 			}
 			style={{ background: "rgba(255, 255, 255, 0.6)" }}
