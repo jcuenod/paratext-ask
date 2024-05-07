@@ -4,13 +4,15 @@ import { faThumbsUp as farThumbsUp } from "@fortawesome/free-regular-svg-icons"
 import { faRotateRight } from "@fortawesome/free-solid-svg-icons"
 import { faCircleChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import { faCircleChevronRight } from "@fortawesome/free-solid-svg-icons"
+import { faClose } from "@fortawesome/free-solid-svg-icons"
 
 library.add(
 	fasThumbsUp,
 	farThumbsUp,
 	faRotateRight,
 	faCircleChevronLeft,
-	faCircleChevronRight
+	faCircleChevronRight,
+	faClose,
 )
 
 const tui = icon({ prefix: "fas", iconName: "thumbs-up" })
@@ -70,5 +72,17 @@ export const arrowRightIcon = (
 		viewBox="0 0 20 20"
 		xmlns="http://www.w3.org/2000/svg"
 		dangerouslySetInnerHTML={{ __html: ccr.html }}
+	/>
+)
+
+const cl = icon({ prefix: "fas", iconName: "close" })
+
+export const closeIcon = (
+	<svg
+		className="w-6 h-6"
+		fill="currentColor"
+		viewBox="0 0 20 20"
+		xmlns="http://www.w3.org/2000/svg"
+		dangerouslySetInnerHTML={{ __html: cl.html }}
 	/>
 )
