@@ -31,13 +31,12 @@ export const QueryBox = ({
 				}
 			}}
 		>
-			<div className="flex">
+			<div className="flex md:min-w-[30rem] min-w-[20rem]">
 				<input
 					className={`
                         border border-gray-300 rounded-l-lg outline-none
                         active:border-blue-500
                         focus:border-blue-500
-                        min-w-[30rem]
                         py-2 px-4 w-full ${className}
                     `}
 					onChange={event => setInputValue(event.target.value)}

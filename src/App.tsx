@@ -32,7 +32,7 @@ function App() {
 
 	return (
 		<div className="App">
-			<h1 className="font-bold text-center" style={{ fontSize: "4rem" }}>
+			<h1 className="font-bold text-center md:text-[4rem] text-[3rem]">
 				Paratext Ask!
 			</h1>
 			<div className="flex flex-col gap-1 m-2">
