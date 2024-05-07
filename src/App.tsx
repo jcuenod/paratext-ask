@@ -1,33 +1,65 @@
 import { QueryBox } from "./components/QueryBox"
 import { useState } from "react"
 import { AnswerBox } from "./components/AnswerBox"
+import { ErrorMessage } from "./components/ErrorMessage"
 import { QAManager, type Question } from "./util/QAManager"
 
 function App() {
 	const [question, setQuestion] = useState<Question>()
 	const [isBusy, setIsBusy] = useState<boolean>(false)
+	const [errorMessage, setErrorMessage] = useState<string>(
+		"Could not connect to server. Please try again later.",
+	)
+	const [showErrorMessage, setShowErrorMessage] = useState<boolean>(false)
 
 	const handleSubmit = async (questionText: string) => {
-		setIsBusy(true)
-		const question = await QAManager.addQuestion(questionText)
-		setQuestion(question)
-		setIsBusy(false)
+		try {
+			setIsBusy(true)
+			const question = await QAManager.addQuestion(questionText)
+			setQuestion(question)
+		} catch (e) {
+			console.error(e)
+			setErrorMessage("Could not connect to server. Please try again later.")
+			setShowErrorMessage(true)
+		} finally {
+			setIsBusy(false)
+		}
 	}
 
 	const handleThumbsUp = async (answerId: number, value: boolean = true) => {
-		const updatedQuestion = await QAManager.thumbsUpAnswer(answerId, value)
-		setQuestion(updatedQuestion)
+		try {
+			const updatedQuestion = await QAManager.thumbsUpAnswer(answerId, value)
+			setQuestion(updatedQuestion)
+		} catch (e) {
+			console.error(e)
+			setErrorMessage(
+				"Could not upvote answer because of a server issue. Please try again later.",
+			)
+			setShowErrorMessage(true)
+		}
 	}
 	const handleRetryAnswer = async () => {
 		if (!question?.id) {
 			console.error("No question id found")
+			setErrorMessage(
+				"Something went wrong retrieving the question. Please try typing the question in again.",
+			)
+			setShowErrorMessage(true)
 			return
 		}
-		setIsBusy(true)
-		const questionWithNewAnswer = await QAManager.getNewAnswer(question.id)
-		console.log(questionWithNewAnswer)
-		setQuestion(questionWithNewAnswer)
-		setIsBusy(false)
+
+		try {
+			setIsBusy(true)
+			const questionWithNewAnswer = await QAManager.getNewAnswer(question.id)
+			console.log(questionWithNewAnswer)
+			setQuestion(questionWithNewAnswer)
+		} catch (e) {
+			console.error(e)
+			setErrorMessage("Could not connect to server. Please try again later.")
+			setShowErrorMessage(true)
+		} finally {
+			setIsBusy(false)
+		}
 	}
 
 	return (
@@ -56,6 +88,11 @@ function App() {
 					</div>
 				)}
 			</div>
+			<ErrorMessage
+				message={errorMessage}
+				show={showErrorMessage}
+				onDismiss={() => setShowErrorMessage(false)}
+			/>
 		</div>
 	)
 }
