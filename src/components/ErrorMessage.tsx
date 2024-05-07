@@ -15,9 +15,9 @@ export const ErrorMessage = ({
 			className={
 				`fixed w-full bottom-0 left-0 p-3 z-50
                 flex items-center justify-center gap-2
-                translate-y-full transition-transform duration-300
+                transition-transform duration-300
                 text-lg bg-red-500 text-red-100` +
-				(show ? " translate-y-0" : "")
+				(show ? " translate-y-0" : " translate-y-full")
 			}
 		>
 			<span>{message}</span>
